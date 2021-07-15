@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import Horloge from './components/horloge/horloge';
+import HideItem from './components/hide-item/hide-item';
+import SearchBar from './components/search-bar/search-bar';
+import { useState } from 'react';
+import Weather from './components/weather/weather';
+
+// https://developer.mozilla.org/en-US/docs/Glossary/Falsy
 
 function App() {
+  const [city, setCity] = useState('');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HideItem>
+        {/* Contenu => envoyer au composant via la props.children */}
+        <Horloge />
+      </HideItem>
+
+      <h2>Demo API</h2>
+      <SearchBar onSearch={c => setCity(c)} />
+      {!!city && (
+        <Weather city={city} />
+      )}
     </div>
   );
 }
